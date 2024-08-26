@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Left Widget</title>
+    <style>
+        @font-face {
+            font-family: 'Digital-7';
+            src: url('fonts/digital-7.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #F2F2F2;
+        }
+
+        .widget {
+            position: absolute;
+            width: 400px;
+            height: 200px;
+            left: calc(50% - 400px/2);
+            top: calc(50% - 200px/2);
+            font-family: 'Digital-7';
+            font-style: normal;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #000000;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #hoursLeft {
+            font-size: 96px;
+            line-height: 1;
+        }
+
+        #secondsLeft {
+            font-size: 64px;
+            font-style: italic;
+            line-height: 1;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget" id="timeWidget">
+        <div id="hoursLeft"></div>
+        <div id="secondsLeft"></div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const endOfYear = new Date(now.getFullYear(), 11, 31, 23, 59, 59);
+            const hoursLeft = Math.floor((endOfYear - now) / 1000 / 60 / 60);
+            const secondsLeft = 3600 - (now.getMinutes() * 60 + now.getSeconds());
+
+            document.getElementById('hoursLeft').textContent = hoursLeft;
+            document.getElementById('secondsLeft').textContent = secondsLeft;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
